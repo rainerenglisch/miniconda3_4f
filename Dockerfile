@@ -13,11 +13,8 @@ RUN apt-get install -y apt-utils
 RUN apt-get install -y curl
 RUN apt-get install -y gnupg
 
-COPY microsoft.asc /data/microsoft.asc
-RUN cat /data/microsoft.asc | apt-key add -  
-
-COPY prod.list /data/prod.list
-RUN cat /data/prod.list > /etc/apt/sources.list.d/mssql-release.list 
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get install msodbcsql17 
