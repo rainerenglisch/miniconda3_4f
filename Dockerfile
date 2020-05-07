@@ -18,17 +18,17 @@ RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/so
 
 RUN apt-get update
 RUN ACCEPT_EULA=Y && \
-    apt-get install msodbcsql17 
+    apt-get install -y msodbcsql17 
 # optional: for bcp and sqlcmd
 RUN ACCEPT_EULA=Y && \
-    apt-get install mssql-tools 
+    apt-get install -y mssql-tools 
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile && \
     echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && \
     source ~/.bashrc && \
 # optional: for unixODBC development headers
-    apt-get install unixodbc-dev && \
+    apt-get install -y unixodbc-dev && \
 # optional: kerberos library for debian-slim distributions
-    apt-get install libgssapi-krb5-2 
+    apt-get install -y libgssapi-krb5-2 
 
 # install python libraries
 COPY conda_requirements.yaml /data/conda_requirements.yaml
