@@ -29,6 +29,7 @@ RUN apt-get install -y unixodbc-dev && \
 # optional: kerberos library for debian-slim distributions
     apt-get install -y libgssapi-krb5-2 
 
+RUN odbcinst -j
 # install python libraries
 #COPY conda_requirements.yaml /data/conda_requirements.yaml
 #RUN conda env update --file /data/conda_requirements.yaml  --prune
