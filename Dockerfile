@@ -17,21 +17,21 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 RUN apt-get update
-RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17 && \
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql17 
 # optional: for bcp and sqlcmd
 RUN ACCEPT_EULA=Y apt-get install -y mssql-tools 
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile && \
-    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && \
-    source ~/.bashrc && \
+    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 
+    
+#RUN source ~/.bashrc && \
 # optional: for unixODBC development headers
-    apt-get install -y unixodbc-dev && \
+RUN apt-get install -y unixodbc-dev && \
 # optional: kerberos library for debian-slim distributions
     apt-get install -y libgssapi-krb5-2 
 
 # install python libraries
-COPY conda_requirements.yaml /data/conda_requirements.yaml
-
-RUN conda env update --file /data/conda_requirements.yaml  --prune
+#COPY conda_requirements.yaml /data/conda_requirements.yaml
+#RUN conda env update --file /data/conda_requirements.yaml  --prune
 
 
 #ENTRYPOINT [ "/usr/bin/tini", "--" ]
